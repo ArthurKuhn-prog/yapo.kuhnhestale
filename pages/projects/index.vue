@@ -1,3 +1,7 @@
+<script setup lang="ts">
+    const { data: projects } = await useFetch('http://localhost:8000/api/projects')
+</script>
+
 <template>
     <div>
         <div>
@@ -20,26 +24,3 @@
         </div>
     </div>
 </template>
-
-<script>
-import axios from 'axios';
-
-export default {
-    name: 'Projects',
-    data(){
-        return {
-            projects: [],
-        }
-    },
-    mounted(){
-        this.getProjects();
-    },
-    methods:{
-        getProjects(){
-            axios.get(`http://localhost:8000/api/projects`).then(res => {
-                this.projects = res.data.projects;
-            });
-        }
-    }
-}
-</script>

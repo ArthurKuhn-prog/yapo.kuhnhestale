@@ -1,5 +1,9 @@
 <template>
     <div>
+        <Head>
+            <Title>My App</Title>
+            <Meta name="csrf-token" content="{{ csrf_token() }}"/>
+        </Head>
         <form @submit.prevent="saveProject">
             <div>
                 <label>Title</label>
@@ -29,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default{
     name:'Project create',
@@ -46,10 +49,10 @@ export default{
         }
     },
     methods: {
-        saveProject(){
-            axios.post(`http://localhost:8000/api/projects`, this.project).then(res => {
-                console.log(res, 'res');
-                alert(res.data.message);
+        async saveProject(){
+            await $fetch('http://localhost:8000/api/projects',{
+                method: POST,
+                body: this.project
             })
         }
     }
